@@ -2,6 +2,8 @@
   "name": "pilabfinans",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/AmauriLima/finans",
+  "author": "Amauri Pereira de Lima Junior",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js"
