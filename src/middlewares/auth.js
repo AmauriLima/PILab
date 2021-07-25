@@ -24,7 +24,6 @@ module.exports = (request, response, next) => {
     if (err) {
       return response.status(401).json({ error: 'Token invalid' });
     }
-
     request.userId = decoded.id;
     return next();
   });

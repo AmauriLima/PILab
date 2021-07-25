@@ -23,3 +23,4 @@ CREATE TABLE IF NOT EXISTS incomes_and_expenses (
   PRIMARY KEY(id),
   FOREIGN KEY(owner) REFERENCES users(id)
 );
+

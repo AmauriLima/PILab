@@ -4,10 +4,6 @@ const WalletController = require('./app/controllers/WalletController');
 
 const router = Router();
 
-router.get('/', (request, response) => {
-  response.render('index');
-});
-
 router.post('/auth/signup', AuthController.store);
 router.post('/auth/login', AuthController.login);
 

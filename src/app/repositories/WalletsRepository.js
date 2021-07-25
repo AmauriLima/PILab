@@ -1,12 +1,13 @@
 const db = require('../../database');
 
 class WalletsRepository {
-  async findAll() {
+  async findAll(userId) {
     const rows = await db.query(`
       SELECT ie.*, users.name AS owner_name
       FROM incomes_and_expenses AS ie
       JOIN users ON ie.owner = users.id
-    `);
+      WHERE ie.owner = $1
+    `, [userId]);
 
     return rows;
   }

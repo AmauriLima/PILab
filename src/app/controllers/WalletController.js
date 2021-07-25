@@ -2,7 +2,7 @@ const WalletsRepository = require('../repositories/WalletsRepository');
 
 class WalletController {
   async index(request, response) {
-    const wallet = await WalletsRepository.findAll();
+    const wallet = await WalletsRepository.findAll(request.userId);
 
     response.json(wallet);
   }

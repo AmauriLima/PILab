@@ -29,10 +29,13 @@ class AuthController {
     });
 
     user.password = undefined;
+    const token = generateToken({ id: user.id });
 
-    response.json({
+    request.headers.authorization = token;
+
+    response.send({
       user,
-      token: generateToken({ id: user.id }),
+      token,
     });
   }
 
