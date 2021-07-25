@@ -23,7 +23,7 @@ class WalletController {
       description, value, owner, type,
     });
 
-    response.json(income);
+    response.status(201).json(income);
   }
 
   async storeExpense(request, response) {
@@ -42,7 +42,7 @@ class WalletController {
       description, value, owner, type,
     });
 
-    response.json(expense);
+    response.status(201).json(expense);
   }
 }
 

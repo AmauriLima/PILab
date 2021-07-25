@@ -29,13 +29,10 @@ class AuthController {
     });
 
     user.password = undefined;
-    const token = generateToken({ id: user.id });
 
-    request.headers.authorization = token;
-
-    response.send({
+    response.status(201).json({
       user,
-      token,
+      token: generateToken({ id: user.id }),
     });
   }
 
@@ -51,12 +48,12 @@ class AuthController {
     const validPassword = await UsersRepository.authenticatePassword(user, password);
 
     if (!validPassword) {
-      return response.status(400).json({ error: 'Invalid password' });
+      return response.status(401).json({ error: 'Invalid password' });
     }
 
     user.password = undefined;
 
-    response.json({
+    response.status(201).json({
       user,
       token: generateToken({ id: user.id }),
     });
