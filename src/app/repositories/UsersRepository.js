@@ -8,9 +8,9 @@ class UsersRepository {
     const passwordEncrypted = await bcrypt.hash(password, 10);
 
     const [row] = await db.query(`
-    INSERT INTO users(name, email, password)
-    VALUES($1, $2, $3)
-    RETURNING *
+      INSERT INTO users(name, email, password)
+      VALUES($1, $2, $3)
+      RETURNING *
     `, [name, email, passwordEncrypted]);
 
     return row;
