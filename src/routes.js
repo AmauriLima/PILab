@@ -8,7 +8,7 @@ router.post('/auth/signup', AuthController.store);
 router.post('/auth/login', AuthController.login);
 
 router.get('/wallet', WalletController.index);
-router.post('/wallet/deposit', WalletController.storeIncome);
-router.post('/wallet/withdraw', WalletController.storeExpense);
+router.post('/wallet/deposit', WalletController.store);
+router.post('/wallet/withdraw', WalletController.store);
 
 module.exports = router;

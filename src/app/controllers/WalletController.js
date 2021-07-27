@@ -3,46 +3,31 @@ const WalletsRepository = require('../repositories/WalletsRepository');
 class WalletController {
   async index(request, response) {
     const wallet = await WalletsRepository.findAll(request.userId);
-
     response.json(wallet);
   }
 
-  async storeIncome(request, response) {
+  async store(request, response) {
     const {
       description, value,
     } = request.body;
 
     const owner = request.userId;
-    const type = '2';
+
+    const [,, typeName] = request.url.split('/');
+
+    // 1 -> withdraw
+    // 2 -> deposit
+    const type = (typeName === 'withdraw') ? '1' : '2';
 
     if (!value) {
       return response.status(400).json({ error: 'Value is required' });
     }
 
-    const income = await WalletsRepository.create({
+    const register = await WalletsRepository.create({
       description, value, owner, type,
     });
 
-    response.status(201).json(income);
-  }
-
-  async storeExpense(request, response) {
-    const {
-      description, value,
-    } = request.body;
-
-    const owner = request.userId;
-    const type = '1';
-
-    if (!value) {
-      return response.status(400).json({ error: 'Value is required' });
-    }
-
-    const expense = await WalletsRepository.create({
-      description, value, owner, type,
-    });
-
-    response.status(201).json(expense);
+    response.status(201).json(register);
   }
 }
 
