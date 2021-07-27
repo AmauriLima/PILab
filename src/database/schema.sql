@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TYPE type AS ENUM('1', '2');
 
 CREATE TABLE IF NOT EXISTS incomes_and_expenses (
-  id SERIAL NOT NULL UNIQUE,
+  id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
   description VARCHAR,
   VALUE NUMERIC(15, 6) NOT NULL,
   owner UUID NOT NULL,
@@ -23,4 +23,3 @@ CREATE TABLE IF NOT EXISTS incomes_and_expenses (
   PRIMARY KEY(id),
   FOREIGN KEY(owner) REFERENCES users(id)
 );
-
