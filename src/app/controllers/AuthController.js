@@ -4,9 +4,7 @@ const UsersRepository = require('../repositories/UsersRepository');
 const authConfig = require('../../config/auth.json');
 
 function generateToken(params = {}) {
-  return jwt.sign(params, authConfig.secret, {
-    expiresIn: 86400,
-  });
+  return jwt.sign(params, authConfig.secret);
 }
 
 class AuthController {
@@ -56,6 +54,18 @@ class AuthController {
     response.status(201).json({
       user,
       token: generateToken({ id: user.id }),
+    });
+  }
+
+  async verifyToken(request, response) {
+    const authHeader = await request.headers.authorization;
+
+    const [, token] = authHeader.split(' ');
+    jwt.verify(token, authConfig.secret, async (err) => {
+      if (err) {
+        await response.status(401).json({ error: 'Invalid Token' });
+      }
+      await response.status(200).json(token);
     });
   }
 }
