@@ -23,6 +23,28 @@ class WalletsRepository {
 
     return row;
   }
+
+  async findAllWithdraws(userId) {
+    const rows = await db.query(`
+      SELECT ie.*, users.name AS owner_name
+      FROM incomes_and_expenses AS ie
+      JOIN users ON ie.owner = users.id
+      WHERE ie.owner = $1 AND ie.type = $2;
+    `, [userId, 1]);
+
+    return rows;
+  }
+
+  async findAllDeposits(userId) {
+    const rows = await db.query(`
+      SELECT ie.*, users.name AS owner_name
+      FROM incomes_and_expenses AS ie
+      JOIN users ON ie.owner = users.id
+      WHERE ie.owner = $1 AND ie.type = $2;
+    `, [userId, 2]);
+
+    return rows;
+  }
 }
 
 module.exports = new WalletsRepository();

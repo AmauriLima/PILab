@@ -29,6 +29,16 @@ class WalletController {
 
     response.status(201).json(register);
   }
+
+  async getAllWithdraws(request, response) {
+    const withdraws = await WalletsRepository.findAllWithdraws(request.userId);
+    response.json(withdraws);
+  }
+
+  async getAllDeposits(request, response) {
+    const deposits = await WalletsRepository.findAllDeposits(request.userId);
+    response.json(deposits);
+  }
 }
 
 module.exports = new WalletController();
